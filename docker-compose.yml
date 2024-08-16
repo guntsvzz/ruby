@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./blog:/app
+    environment:
+      - DATABASE_URL=postgresql://user:user@db:5432/user
+    #   - RAILS_ENV=development
+    command: bundle exec puma config.ru
+    depends_on:
+      - db  # add all dependant container
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=user
+      - POSTGRES_USER=user
+      - POSTGRES_DB=user
+
+volumes:
+  postgres_data:
