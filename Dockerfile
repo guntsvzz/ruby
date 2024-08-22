@@ -12,7 +12,7 @@ RUN apt-get install -y \
     rbenv 
 
 # Create a new Rails application with PostgreSQL
-RUN rails new blog -d postgresql
+# RUN rails new blog -d postgresql
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ COPY ./blog/Gemfile* ./
 
 RUN bundle install
 
-# ADD ./blog . 
+ADD ./blog . 
 
 ARG DEFAULT_PORT 3000
 
